@@ -2,51 +2,58 @@ import React from "react";
 import styled from "styled-components";
 import Logo1 from "../images/logo.svg";
 import Home from "../images/home-icon.svg";
-import  Search  from "../images/search-icon.svg";
-import Watch from "../images/watchlist-icon.svg"
-import Original from "../images/original-icon.svg"
-import Movie from "../images/movie-icon.svg"
-import Series from "../images/series-icon.svg"
+import Search from "../images/search-icon.svg";
+import Watch from "../images/watchlist-icon.svg";
+import Original from "../images/original-icon.svg";
+import Movie from "../images/movie-icon.svg";
+import Series from "../images/series-icon.svg";
+import { auth } from "../firebase";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+// import { provider } from "../firebase";
 
 export const Header = () => {
+  const handleAuthi = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((res) => console.log(res))
+      .catch((err) => alert(err));
+  };
+
   return (
     <Nav>
       <Logo>
         <img src={Logo1} />
       </Logo>
       <NavMenu>
-      <a href="/home">
-              <img src={Home} alt="HOME" />
-              <span>HOME</span>
-            </a>
-            <a>
-              <img src={Search} alt="SEARCH" />
-              <span>SEARCH</span>
-            </a>
-            <a>
-              <img src={Watch} alt="WATCHLIST" />
-              <span>WATCHLIST</span>
-            </a>
-            <a>
-              <img src={Original} alt="ORIGINALS" />
-              <span>ORIGINALS</span>
-            </a>
-            <a>
-              <img src={Movie} alt="MOVIES" />
-              <span>MOVIES</span>
-            </a>
-            <a>
-              <img src={Series} alt="SERIES" />
-              <span>SERIES</span>
-            </a>
-        
+        <a href="/home">
+          <img src={Home} alt="HOME" />
+          <span>HOME</span>
+        </a>
+        <a>
+          <img src={Search} alt="SEARCH" />
+          <span>SEARCH</span>
+        </a>
+        <a>
+          <img src={Watch} alt="WATCHLIST" />
+          <span>WATCHLIST</span>
+        </a>
+        <a>
+          <img src={Original} alt="ORIGINALS" />
+          <span>ORIGINALS</span>
+        </a>
+        <a>
+          <img src={Movie} alt="MOVIES" />
+          <span>MOVIES</span>
+        </a>
+        <a>
+          <img src={Series} alt="SERIES" />
+          <span>SERIES</span>
+        </a>
       </NavMenu>
-      <Login>Login</Login>
+      <Login onClick={handleAuthi}>Login</Login>
     </Nav>
   );
 };
-
-
 
 const Nav = styled.nav`
   position: fixed;
@@ -142,20 +149,20 @@ const NavMenu = styled.div`
     display: none;
   } */
 `;
-const Login=styled.div`
-background-color: rgba(0,0,0,0.6);
-padding: 8px 16px;
-text-transform: uppercase;
-letter-spacing: 1.5px;
-border: 1px solid #f9f9f9;
-border-radius: 10px;
-cursor: pointer;
-transition: all 0.2s ease;
-&:hover{
-    background-color:#f9f9f9 ;
+
+const Login = styled.a`
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 8px 16px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border: 1px solid #f9f9f9;
+  border-radius: 4px;
+  transition: all 0.2s ease 0s;
+
+  &:hover {
+    background-color: #f9f9f9;
     color: #000;
     border-color: transparent;
-}
-
-
-`
+    cursor: pointer;
+  }
+`;
